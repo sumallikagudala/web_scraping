@@ -58,7 +58,7 @@
             <p>Weather report</p>
             <form method="POST"> 
                 {% csrf_token%} 
-                <input type="text" name="city" placeholder="Enter city"> 
+                <input type="text" name="city" placeholder="Enter country/city"> 
                 <input type="submit" aria-label="login">
             </form>  
             {% for key,value in weather.items %}
