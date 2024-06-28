@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body
+    {
+        background-image: url("{% static 'images/weather_bg.jpg'%}");
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+   
+    table, th, td {
+          border: 0px solid black;
+    }
+    table {
+          border-spacing: 50px;
+    }
+    
+</style>
+<script>
+    async function fetchTime() {
+        const response = await fetch('/get_time/');
+        const data = await response.json();        
+        document.getElementById('timeId').innerText = data.current_time;
+       
+        
+    }
+
+    function startFetchingTime() {
+        fetchTime();  // Fetch immediately on load
+        setInterval(fetchTime, 1);  // Fetch every 1s 
+    }
+
+    window.onload = startFetchingTime;
+</script>
+</head>
+<body>
+    <div style='display:flex;justify-content:space-around'>
+        <div>
+            <p>Current Time in India</p>
+            <span id="timeId"> {{time}}</span>
+        </div>
+
+        <div>
+            <p>Today  Gold Rates </p>
+            <span>
+                {% for key,value in goldRate.items %}
+                    <h5>{{key}}: {{value}}</h5>
+                {% endfor %}
+            </span>
+        </div>
+
+        <div>
+            <p>Weather report</p>
+            <form method="POST"> 
+                {% csrf_token%} 
+                <input type="text" name="city" placeholder="Enter city"> 
+                <input type="submit" aria-label="login">
+            </form>  
+            {% for key,value in weather.items %}
+                <h5>{{key}}: {{value}}</h5>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+ </body>
+</html>
