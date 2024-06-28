@@ -15,7 +15,7 @@ def all_scrping_data(request):
         if city: 
              weatherData=weather(request,city)     
         else:  
-             weatherData={"Error": "Please enter city name"}                  
+             weatherData={"Error": "Please enter country / city name"}                  
     else:
         weatherData={}       
        
@@ -69,7 +69,7 @@ def weather(request,city):
                 "description": weather_description
             }           
         else:
-            weather={"Error": "The entered city name is not valid"}   
+            weather={"Error": "The entered country / city name is not valid"}   
         
     return weather
 
